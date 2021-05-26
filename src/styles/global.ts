@@ -27,7 +27,7 @@ export const GlobalStyles = createGlobalStyle`
 
         img{
             width: 100vw;
-            min-height: 27vh;
+            min-height: 28vh;
         }
     }
 `;
@@ -35,14 +35,25 @@ export const GlobalStyles = createGlobalStyle`
 export const Main = styled.main`
     width: 540px;
     margin: 3rem auto;
-    margin-top: -14rem;
-    
+    margin-top: -12rem;
     color: var(--LightGrayishBlue);
+    
+
+    @media(max-width: 600px) {
+        width: 85%;
+        font-size: 0.8rem;
+        margin-top: -9rem;
+    }
+
     .header {
         font-size: 1.2rem;
         letter-spacing: 0.6rem;
         display: flex;
         justify-content: space-between;
+
+        @media(max-width: 600px) {
+            font-size: 0.8rem;
+        }
     }
 
     .inputAddTodo {
@@ -51,6 +62,11 @@ export const Main = styled.main`
         margin: 2rem 0;
         display: flex;
         flex-direction: row;
+
+        @media(max-width: 600px) {
+            height: 3rem;
+            margin: 1.5rem 0;
+        }
 
         input {
             width: 100%;
@@ -70,8 +86,8 @@ export const Main = styled.main`
     }
 
     .todoList {
-        width: 540px;
-        position: absolute;
+        width: 100%;
+        position: relative;
         background-color: var(--VeryDarkDesaturatedBlue);
         border-radius: 0.2rem;
         box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.75);
@@ -81,11 +97,14 @@ export const Main = styled.main`
 
             ul {
                 width: 100%;
-                text-decoration-style:none;
-                height: 3.5rem;
-                padding: 1rem;
+                padding: 1.2rem;
                 border-bottom: 1px solid var(--DarkGrayishBlue);
                 align-items: center;
+
+                @media(max-width: 600px) {
+                    padding: 1rem;
+                }
+
                 p {
                     font-size: 1rem;
                 }
@@ -124,4 +143,5 @@ export const Main = styled.main`
         }
         
     }
+    
 `;
