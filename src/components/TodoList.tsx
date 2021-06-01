@@ -4,28 +4,28 @@ import { TodoContext } from "../context/TodoContext";
 import { SideBar } from "./SideBar";
 
 export const TodoList = () => {
-    const {chores} = useContext(TodoContext);
+    const {filteredTodo} = useContext(TodoContext);
 
     function handleIsCompleted(index: number) {
-        if (chores[index].isCompleted === false) {
-            chores[index].isCompleted = true
+        if (filteredTodo[index].isCompleted === false) {
+            filteredTodo[index].isCompleted = true
         } else {
-            chores[index].isCompleted = false
+            filteredTodo[index].isCompleted = false
         }
     }
 
     return (
        <TodoListStyled>
         <li>
-            {chores.map((chore, index) => 
-                <ul key={chore.keyId} >
-                    {chore.isCompleted === false ? (
+            {filteredTodo.map((todo, index) => 
+                <ul key={todo.keyId} >
+                    {todo.isCompleted === false ? (
                         <>
                             <button 
                                 onClick={() => handleIsCompleted(index)}
                             >
                             </button>
-                            <p>{chore.choreName}</p>
+                            <p>{todo.choreName}</p>
                         </>
                     ) : (
                         <>
@@ -34,7 +34,7 @@ export const TodoList = () => {
                             >
                                 <img src="./assets/icon-check.svg" alt="Icon Check" />
                             </button>
-                            <p className="p-completed" >{chore.choreName}</p>
+                            <p className="p-completed" >{todo.choreName}</p>
                         </>
                     )}
                 </ul>
@@ -84,9 +84,9 @@ const TodoListStyled = styled.div`
                 img {
                     width: 100%;
                     height: 100%;
-                    padding: 2px;
+                    padding: 3px;
                     border-radius: 50%;
-                    background-image: linear-gradient(to bottom right, #0098fd, #fd00b1);
+                    background-image: linear-gradient(to bottom right, #0aa5ff, #fd00b1);
                 }
             }
 
