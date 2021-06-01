@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { TodoContext } from "../context/TodoContext";
 
 export const InputTodo = () => {
-    const {chores, setChores} = useContext(TodoContext);
+    const {chores, setChores, isChecked} = useContext(TodoContext);
 
     const [valueInput, setValueInput] = useState('');
 
@@ -16,16 +16,16 @@ export const InputTodo = () => {
             if(valueInput === '') {
             return
             }
-    
-        const choreValue = {
-            keyId: Math.floor(Math.random() * 10000),
-            choreName: valueInput,
-            isCompleted: false,
-        }
-    
-        setChores([choreValue,...chores])
+        
+            const choreValue = {
+                keyId: Math.floor(Math.random() * 10000),
+                choreName: valueInput,
+                isCompleted: isChecked,
+            }
+        
+            setChores([choreValue,...chores])
 
-        setValueInput('')
+            setValueInput('')
           
     }}
     return (

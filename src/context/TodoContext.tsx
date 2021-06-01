@@ -3,6 +3,8 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "re
 interface TodoContextData {
     chores: IChoresProps[];
     setChores: Dispatch<SetStateAction<IChoresProps[]>>;
+    isChecked: boolean;
+    setIsChecked: Dispatch<SetStateAction<boolean>>;
 }
 
 interface TodoContextPRoviderData {
@@ -18,14 +20,17 @@ interface IChoresProps {
 export const TodoContext = createContext({} as TodoContextData);
 
 export function TodoContextProvider({children} : TodoContextPRoviderData) {
-const [chores, setChores] = useState<IChoresProps[]>([]);
-  
+    const [chores, setChores] = useState<IChoresProps[]>([]);
+    const [isChecked, setIsChecked] = useState(false);
+
 
   
   return (
     <TodoContext.Provider value={{
         chores, 
         setChores,
+        isChecked,
+        setIsChecked,
     }} >
         {children}
     </TodoContext.Provider>
