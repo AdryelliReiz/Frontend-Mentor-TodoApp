@@ -1,36 +1,48 @@
 import { useContext } from "react";
 import styled from "styled-components"
 import { TodoContext } from "../context/TodoContext";
+import { SideBar } from "./SideBar";
 
 export const TodoList = () => {
     const {chores} = useContext(TodoContext);
+
+    function handleIsCompleted(index: number) {
+        if (chores[index].isCompleted === false) {
+            chores[index].isCompleted = true
+        } else {
+            chores[index].isCompleted = false
+        }
+    }
+
     return (
        <TodoListStyled>
         <li>
-            {chores.map(chore => 
-                <ul key={chore.keyId} >{chore.choreName}</ul>
+            {chores.map((chore, index) => 
+                <ul key={chore.keyId} >
+                    {chore.isCompleted === false ? (
+                        <>
+                            <button 
+                                onClick={() => handleIsCompleted(index)}
+                            >
+                            </button>
+                            <p>{chore.choreName}</p>
+                        </>
+                    ) : (
+                        <>
+                            <button
+                            onClick={() => {handleIsCompleted(index)}}
+                            >
+                                <img src="./assets/icon-check.svg" alt="Icon Check" />
+                            </button>
+                            <p className="p-completed" >{chore.choreName}</p>
+                        </>
+                    )}
+                </ul>
             )}
             
         </li>
 
-        <div className="todoSubtitle">
-            <p>{chores.length} items left</p>
-
-            <div className="todoFilters">
-            <button>
-                All
-            </button>
-            <button>
-                Active
-            </button>
-            <button>
-                Completed
-            </button>
-            </div>
-
-            <button>Clear Completed</button>
-
-        </div> 
+        <SideBar />
        </TodoListStyled>
     )
 }
@@ -49,47 +61,39 @@ const TodoListStyled = styled.div`
             width: 100%;
             padding: 1.2rem;
             border-bottom: 1px solid var(--DarkGrayishBlue);
+            display: flex;
             align-items: center;
+            
 
             @media(max-width: 600px) {
                 padding: 1rem;
             }
 
-            p {
-                font-size: 1rem;
+            button {
+                width: 1.2rem;
+                height: 1.2rem;
+                border-radius: 50%;
+                background-color: transparent;
+                border: 1px solid var(--DarkGrayishBlue);
+                margin-right: 1rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    padding: 2px;
+                    border-radius: 50%;
+                    background-image: linear-gradient(to bottom right, #0098fd, #fd00b1);
+                }
+            }
+
+            .p-completed {
+                color: var(--DarkGrayishBlue);
+                text-decoration: line-through;
             }
         }
     }
-    .todoSubtitle {
-        height: 3rem;
-        display: flex;
-        justify-content:space-between;
-        align-items: center;
-        padding: 1rem;
-            
-        font-size: 0.85rem;
-        color: var(--DarkGrayishBlue);
-
-        .todoFilters {
-            button {
-                background-color: transparent;
-                color: var(--DarkGrayishBlue);
-                    border-style: none;
-                font-size: 0.75rem;
-                cursor: pointer;
-            }
-            button + button {
-                margin-left: 0.5rem;
-            }
-        }
-
-        button {
-            background-color: transparent;
-            color: var(--DarkGrayishBlue);
-            border-style: none;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
-    }  
-    
 `;
