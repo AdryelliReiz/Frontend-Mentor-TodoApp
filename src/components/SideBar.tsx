@@ -4,25 +4,54 @@ import { TodoContext } from "../context/TodoContext"
 
 
 export const SideBar = () => {
-    const {chores} = useContext(TodoContext);
+    const {chores,setChores, setFilteredTodo} = useContext(TodoContext);
+
+
+    function filterAll() {
+        setFilteredTodo(chores)
+    }
+
+    function FilterActive() {
+        const data = chores.filter(chore => chore.isCompleted === false)
+        setFilteredTodo(data)
+    }
+
+    function FilteredCompleted() {
+        const data = chores.filter(chore => chore.isCompleted === true)
+        setFilteredTodo(data)
+    }
+
+    function ClearChores() {
+        setChores([])
+    }
 
     return(
         <SideBarStyled>
             <p>{chores.length} items left</p>
 
             <div className="todoFilters">
-            <button>
+            <button
+                onClick={filterAll}
+            >
                 All
             </button>
-            <button>
+            <button
+                onClick={FilterActive}
+            >
                 Active
             </button>
-            <button>
+            <button
+                onClick={FilteredCompleted}
+            >
                 Completed
             </button>
             </div>
 
-            <button>Clear Completed</button>
+            <button
+                onClick={ClearChores}
+            >
+                Clear Completed
+            </button>
 
         </SideBarStyled> 
     )
@@ -39,13 +68,6 @@ const SideBarStyled = styled.div`
     color: var(--DarkGrayishBlue);
 
     .todoFilters {
-        button {
-            background-color: transparent;
-            color: var(--DarkGrayishBlue);
-            border-style: none;
-            font-size: 0.75rem;
-            cursor: pointer;
-        }
         button + button {
             margin-left: 0.5rem;
         }
@@ -57,5 +79,8 @@ const SideBarStyled = styled.div`
         border-style: none;
         font-size: 0.75rem;
         cursor: pointer;
+    }
+    button:hover {
+        color: #006eff;
     }
 `;
