@@ -2,11 +2,11 @@ import styled, {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
     :root {
-        --VeryDarkBlue: hsl(235, 21%, 11%);
-        --VeryDarkDesaturatedBlue: hsl(235, 24%, 19%);
-        --LightGrayishBlue:  hsl(234, 39%, 85%); 
-        --DarkGrayishBlue: hsl(234, 11%, 52%);
-        --VeryDarkGrayishBlue:  hsl(237, 14%, 26%);
+        --VeryDarkBlue: ${props => props.theme.colors.primary};
+        --VeryDarkDesaturatedBlue: ${props => props.theme.colors.secondary};
+        --LightGrayishBlue:  ${props => props.theme.colors.font}; 
+        --DarkGrayishBlue: ${props => props.theme.colors.fontTow};
+        --VeryDarkGrayishBlue:  ${props => props.theme.colors.fontThree};
     }
     
     * {
