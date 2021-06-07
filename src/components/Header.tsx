@@ -31,6 +31,9 @@ const HeaderStyled = styled.header`
     letter-spacing: 0.6rem;
     display: flex;
     justify-content: space-between;
+    h1{
+      color: hsl(234, 39%, 85%);
+    }
 
     @media(max-width: 600px) {
         font-size: 0.8rem;
@@ -41,5 +44,4 @@ const HeaderStyled = styled.header`
       border: none;
       cursor: pointer;
     }
-    
 `;

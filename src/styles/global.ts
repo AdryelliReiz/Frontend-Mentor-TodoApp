@@ -2,11 +2,11 @@ import styled, {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
     :root {
-        --VeryDarkBlue: ${props => props.theme.colors.primary};
-        --VeryDarkDesaturatedBlue: ${props => props.theme.colors.secondary};
-        --LightGrayishBlue:  ${props => props.theme.colors.font}; 
-        --DarkGrayishBlue: ${props => props.theme.colors.fontTow};
-        --VeryDarkGrayishBlue:  ${props => props.theme.colors.fontThree};
+        --ColorPrimary: ${props => props.theme.colors.primary};
+        --ColorSecondary: ${props => props.theme.colors.secondary};
+        --ColorFont:  ${props => props.theme.colors.font}; 
+        --ColorFontTwo: ${props => props.theme.colors.fontTow};
+        --ColorFontThree:  ${props => props.theme.colors.fontThree};
     }
     
     * {
@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
         font: 18px "Josefin Sans", sans-serif;
     }
     body {
-        background-color:  var(--VeryDarkBlue); 
+        background-color:  var(--ColorPrimary); 
     }
 `;
 
@@ -28,7 +28,7 @@ export const Main = styled.main`
     width: 540px;
     margin: 3rem auto;
     margin-top: -12rem;
-    color: var(--LightGrayishBlue);
+    color: var(--ColorFont);
     
 
     @media(max-width: 600px) {

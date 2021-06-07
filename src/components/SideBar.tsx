@@ -4,8 +4,9 @@ import { TodoContext } from "../context/TodoContext"
 
 
 export const SideBar = () => {
-    const {chores,setChores, setFilteredTodo} = useContext(TodoContext);
-
+    const {chores,setChores, filteredTodo,setFilteredTodo} = useContext(TodoContext);
+    const itemsLeft = (filteredTodo.filter(todo => todo.isCompleted === false)).length;
+    
 
     function filterAll() {
         setFilteredTodo(chores)
@@ -27,7 +28,7 @@ export const SideBar = () => {
 
     return(
         <SideBarStyled>
-            <p>{chores.length} items left</p>
+            <p>{ itemsLeft } items left</p>
 
             <div className="todoFilters">
             <button
@@ -65,7 +66,7 @@ const SideBarStyled = styled.div`
     padding: 1rem;
             
     font-size: 0.85rem;
-    color: var(--DarkGrayishBlue);
+    color: var(--ColorFontTwo);
 
     .todoFilters {
         button + button {
@@ -75,7 +76,7 @@ const SideBarStyled = styled.div`
 
     button {
         background-color: transparent;
-        color: var(--DarkGrayishBlue);
+        color: var(--ColorFontTwo);
         border-style: none;
         font-size: 0.75rem;
         cursor: pointer;

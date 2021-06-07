@@ -9,7 +9,7 @@ interface TodoContextData {
     setFilteredTodo:Dispatch<SetStateAction<IChoresProps[]>>;
 }
 
-interface TodoContextPRoviderData {
+interface TodoContextProviderData {
     children: ReactNode
 }
 
@@ -21,7 +21,7 @@ interface IChoresProps {
 
 export const TodoContext = createContext({} as TodoContextData);
 
-export function TodoContextProvider({children} : TodoContextPRoviderData) {
+export function TodoContextProvider({children} : TodoContextProviderData) {
     const [chores, setChores] = useState<IChoresProps[]>([]);
     const [isChecked, setIsChecked] = useState(false);
     const [filteredTodo, setFilteredTodo] = useState<IChoresProps[]>([])

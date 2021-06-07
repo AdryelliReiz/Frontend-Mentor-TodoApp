@@ -4,13 +4,19 @@ import { TodoContext } from "../context/TodoContext";
 import { SideBar } from "./SideBar";
 
 export const TodoList = () => {
-    const {filteredTodo} = useContext(TodoContext);
+    const {filteredTodo, setFilteredTodo} = useContext(TodoContext);
 
     function handleIsCompleted(index: number) {
+        const todoUpdate = filteredTodo[index];
+
         if (filteredTodo[index].isCompleted === false) {
-            filteredTodo[index].isCompleted = true
+            todoUpdate.isCompleted = true;
+            const listUpdate = filteredTodo.splice(index, 1, todoUpdate);
+            setFilteredTodo(listUpdate)
         } else {
-            filteredTodo[index].isCompleted = false
+            todoUpdate.isCompleted = false;
+            const listUpdate = filteredTodo.splice(index, 1, todoUpdate);
+            setFilteredTodo(listUpdate)
         }
     }
 
@@ -50,7 +56,7 @@ export const TodoList = () => {
 const TodoListStyled = styled.div`
     width: 100%;
     position: relative;
-    background-color: var(--VeryDarkDesaturatedBlue);
+    background-color: var(--ColorSecondary);
     border-radius: 0.2rem;
     box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.75);
 
@@ -60,7 +66,7 @@ const TodoListStyled = styled.div`
         ul {
             width: 100%;
             padding: 1.2rem;
-            border-bottom: 1px solid var(--DarkGrayishBlue);
+            border-bottom: 1px solid var(--ColorFontTwo);
             display: flex;
             align-items: center;
             
@@ -74,7 +80,7 @@ const TodoListStyled = styled.div`
                 height: 1.2rem;
                 border-radius: 50%;
                 background-color: transparent;
-                border: 1px solid var(--DarkGrayishBlue);
+                border: 1px solid var(--ColorFontTwo);
                 margin-right: 1rem;
                 cursor: pointer;
                 display: flex;
@@ -91,7 +97,7 @@ const TodoListStyled = styled.div`
             }
 
             .p-completed {
-                color: var(--DarkGrayishBlue);
+                color: var(--ColorFontTwo);
                 text-decoration: line-through;
             }
         }

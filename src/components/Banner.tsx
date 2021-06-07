@@ -1,9 +1,16 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { ThemeContextLD } from '../context/ThemeContext';
 
 export const Banner = () => {
+    const {theme} = useContext(ThemeContextLD)
     return(
         <BannerStyled>
-            <img src='./assets/bg-desktop-dark.jpg' alt="Banner" />
+            {theme.title === 'light' ? (
+                <img src='./assets/bg-desktop-light.jpg' alt="Banner" />
+            ) : (
+                <img src='./assets/bg-desktop-dark.jpg' alt="Banner" />
+            )}
         </BannerStyled>
     )
 };

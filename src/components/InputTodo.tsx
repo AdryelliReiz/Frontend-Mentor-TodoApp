@@ -58,10 +58,10 @@ const InputTodoStyled = styled.div`
         width: 100%;
         height: 100%;
         padding: 1rem;
-        background-color: var(--VeryDarkDesaturatedBlue);
+        background-color: var(--ColorSecondary);
         border-style: none;
         border-radius: 0.2rem;
-        color: var(--LightGrayishBlue);
+        color: var(--ColorFont);
         font-size: 1rem;
         box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.75);
 
