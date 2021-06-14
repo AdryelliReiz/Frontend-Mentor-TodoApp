@@ -9,7 +9,7 @@ type Response<T> = [
 function usePersistedState<T>(key: string, initialState: T): Response<T> {
     const [state, setState] = useState(() => {
         const storageValue = Cookies.get(key);
-
+        
         if(storageValue) {
             return JSON.parse(storageValue);
         } else {

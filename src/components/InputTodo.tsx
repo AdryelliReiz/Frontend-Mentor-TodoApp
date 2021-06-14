@@ -3,31 +3,31 @@ import styled from "styled-components"
 import { TodoContext } from "../context/TodoContext";
 
 export const InputTodo = () => {
-    const {chores, setChores, isChecked} = useContext(TodoContext);
+    const {chores, setChores} = useContext(TodoContext);
 
     const [valueInput, setValueInput] = useState('');
 
     function handleChangeInput(event: ChangeEvent<HTMLInputElement>) {
-    setValueInput(event.target.value)
+        setValueInput(event.target.value)
     }
     
     function createNewTodo(event:KeyboardEvent) {
         if (event.code === 'Enter') {
-            if(valueInput === '') {
-            return
+            if (valueInput === '') {
+                return
             }
         
             const choreValue = {
                 keyId: Math.floor(Math.random() * 10000),
                 choreName: valueInput,
-                isCompleted: isChecked,
+                isCompleted: false,
             }
         
-            setChores([choreValue,...chores])
+            setChores([choreValue, ...chores])
 
             setValueInput('')
-          
-    }}
+        }
+    }
     return (
         <InputTodoStyled>
             <input 

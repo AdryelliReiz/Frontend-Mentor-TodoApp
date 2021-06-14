@@ -60,10 +60,12 @@ export const SideBar = () => {
 
 const SideBarStyled = styled.div`
     height: 3rem;
+    background-color: var(--ColorSecondary);
     display: flex;
     justify-content:space-between;
     align-items: center;
     padding: 1rem;
+    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.75);
             
     font-size: 0.85rem;
     color: var(--ColorFontTwo);

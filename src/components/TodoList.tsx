@@ -1,52 +1,84 @@
-import { useContext } from "react";
+import { useCallback, useContext, useEffect} from "react";
 import styled from "styled-components"
 import { TodoContext } from "../context/TodoContext";
 import { SideBar } from "./SideBar";
 
 export const TodoList = () => {
-    const {filteredTodo, setFilteredTodo} = useContext(TodoContext);
+    const {filteredTodo, setFilteredTodo, chores, setChores} = useContext(TodoContext);
 
     function handleIsCompleted(index: number) {
         const todoUpdate = filteredTodo[index];
+        const updateChore = chores.indexOf(todoUpdate)
 
-        if (filteredTodo[index].isCompleted === false) {
-            todoUpdate.isCompleted = true;
-            const listUpdate = filteredTodo.splice(index, 1, todoUpdate);
-            setFilteredTodo(listUpdate)
+        if (chores[updateChore].isCompleted === false) {
+            chores[updateChore].isCompleted = true;
         } else {
-            todoUpdate.isCompleted = false;
-            const listUpdate = filteredTodo.splice(index, 1, todoUpdate);
-            setFilteredTodo(listUpdate)
+            chores[updateChore].isCompleted = false;
         }
+        
+        const cloneChores = chores;
+        cloneChores.splice(updateChore, 1, chores[updateChore]);
+        setChores(cloneChores);
     }
 
+    function removeTodo(index: number) {
+        const todoRemove = filteredTodo[index];
+        const choreRemove = chores.indexOf(todoRemove);
+        const cloneChores = chores;
+
+        cloneChores.splice(choreRemove, 1);
+
+        setChores(cloneChores);
+    }
+
+    useEffect(() => {
+        setFilteredTodo(chores);
+    }, [chores])
+
+   
     return (
        <TodoListStyled>
-        <li>
+        <ul>
             {filteredTodo.map((todo, index) => 
-                <ul key={todo.keyId} >
+                <li key={todo.keyId} >
                     {todo.isCompleted === false ? (
                         <>
-                            <button 
-                                onClick={() => handleIsCompleted(index)}
+                            <div>
+                                <button className="checkButton"
+                                    onClick={() => handleIsCompleted(index)}
+                                >
+                                </button>
+                                <p>{todo.choreName}</p>
+                            </div>
+                            <button
+                                className="crossButton"
+                                onClick={() => removeTodo(index)}
                             >
+                                <img src="./assets/icon-cross.svg" alt="Cross" />
                             </button>
-                            <p>{todo.choreName}</p>
                         </>
                     ) : (
                         <>
-                            <button
-                            onClick={() => {handleIsCompleted(index)}}
+                            <div>
+                                <button className="checkButton"
+                                onClick={() => {handleIsCompleted(index)}}
+                                >
+                                    <img src="./assets/icon-check.svg" alt="Icon Check" />
+                                </button>
+                                <p className="p-completed" >{todo.choreName}</p>
+                            </div>
+                            <button 
+                                    className="crossButton"
+                                    onClick={() => removeTodo(index)}
                             >
-                                <img src="./assets/icon-check.svg" alt="Icon Check" />
+                                <img src="./assets/icon-cross.svg" alt="Cross" />
                             </button>
-                            <p className="p-completed" >{todo.choreName}</p>
                         </>
                     )}
-                </ul>
+                </li>
             )}
             
-        </li>
+        </ul>
 
         <SideBar />
        </TodoListStyled>
@@ -56,50 +88,70 @@ export const TodoList = () => {
 const TodoListStyled = styled.div`
     width: 100%;
     position: relative;
-    background-color: var(--ColorSecondary);
     border-radius: 0.2rem;
-    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.75);
 
-    li {
+    ul {
         list-style: none;
+        background-color: var(--ColorSecondary);
+        box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.75);
 
-        ul {
+        li {
             width: 100%;
-            padding: 1.2rem;
+            padding: 1rem;
             border-bottom: 1px solid var(--ColorFontTwo);
             display: flex;
             align-items: center;
+            justify-content: space-between;
             
+            div {
+                display: flex;
+                align-items: center;
+
+                .checkButton {
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    border-radius: 50%;
+                    background-color: transparent;
+                    border: 1px solid var(--ColorFontTwo);
+                    margin-right: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        padding: 3px;
+                        border-radius: 50%;
+                        background-image: linear-gradient(to bottom right, #0aa5ff, #fd00b1);
+                    }
+                }
+                .p-completed {
+                    color: var(--ColorFontTwo);
+                    text-decoration: line-through;
+                }
+            }
 
             @media(max-width: 600px) {
                 padding: 1rem;
             }
-
-            button {
-                width: 1.2rem;
-                height: 1.2rem;
-                border-radius: 50%;
+            
+            .crossButton {
+                width: 1.5rem;
+                height: 1.5rem;
                 background-color: transparent;
-                border: 1px solid var(--ColorFontTwo);
-                margin-right: 1rem;
-                cursor: pointer;
+                border: none;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    padding: 3px;
-                    border-radius: 50%;
-                    background-image: linear-gradient(to bottom right, #0aa5ff, #fd00b1);
-                }
-            }
-
-            .p-completed {
-                color: var(--ColorFontTwo);
-                text-decoration: line-through;
+                cursor: pointer;
             }
         }
     }
+    @media(max-width: 680px) {
+            ul {
+                margin-bottom: 2rem;
+            }
+        }
 `;
